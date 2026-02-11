@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine's Project</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="valentine.css">
+</head>
+
+<body>
+    <div id="splash-screen">
+        <div class="splash-content">
+            <img src="logo.svg" alt="Loading..." class="splash-logo">
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-decoration top">
+        <div class="deco-line"></div>
+        <div class="deco-symbol">❤</div>
+        <div class="deco-line"></div>
+    </div>
+    <div class="container" id="main-container">
+        <div class="content-section" id="first-text-section">
+            <div class="content-wrapper">
+
+                <div class="typing-area">
+                    <div class="typing-text"><span id="text-1"></span><span class="cursor"></span></div>
+                </div>
+                <div class="tap-instruction" id="hint-1">тыкай</div>
+            </div>
+        </div>
+
+        <div class="content-section hidden" id="second-text-section">
+            <div class="content-wrapper">
+                <div class="typing-area">
+                    <div class="typing-text"><span id="text-2"></span><span class="cursor"></span></div>
+                </div>
+                <div class="tap-instruction" id="hint-2">тыкай</div>
+            </div>
+        </div>
+
+        <div class="content-section hidden" id="cards-section">
+            <div class="card-title"><span class="glow-text">КРУТЫЕ</span> Факты о тебе</div>
+            <div class="cards-container" id="cards-stack">
+                <div class="card">
+                    <video src="1.webm" autoplay loop muted playsinline></video>
+                    <span>С тобой очень тепло проводить время</span>
+                </div>
+                <div class="card">
+                    <video src="2.webm" autoplay loop muted playsinline></video>
+                    <span>Ну просто оооочень красивая</span>
+                </div>
+                <div class="card">
+                    <video src="3.webm" autoplay loop muted playsinline></video>
+                    <span>Твоя улыбка это просто жесть</span>
+                </div>
+                <div class="card">
+                    <video src="4.webm" autoplay loop muted playsinline></video>
+                    <span>Ты та с которой рядом хочется быть лучше</span>
+                </div>
+                <div class="card">
+                    <video src="5.webm" autoplay loop muted playsinline></video>
+                    <span>Хоть и балбесничаешь но ты умни</span>
+                </div>
+                <div class="card">
+                    <video src="6.webm" autoplay loop muted playsinline></video>
+                    <span>Да и в общем ты вайб челик</span>
+                </div>
+            </div>
+            <div class="cards-footer" id="final-cards-text">Да и всё не описать...</div>
+            <div class="tap-instruction visible" id="final-hint">тыкай</div>
+        </div>
+    </div>
+
+    <canvas id="particle-canvas"></canvas>
+    <div class="tap-instruction" id="particle-hint"
+        style="position: fixed; bottom: 10%; width: 100%; z-index: 20; color: #fff; text-shadow: 0 0 5px rgba(0,0,0,0.5);">
+        тыкай</div>
+
+
+    </div>
+    <div id="final-message-screen" class="hidden">
+        <div class="typing-text" id="last-words"></div>
+        <div class="tap-instruction" id="confession-hint" style="color: rgba(255,255,255,0.7);">тыкай</div>
+
+        <div id="ticket-area" class="hidden">
+            <div class="buttons-wrapper">
+                <button id="accept-btn" class="simple-btn">Принять</button>
+                <button id="decline-btn" class="simple-btn">Отклонить</button>
+            </div>
+
+            <div id="date-ticket" class="hidden">
+                <div class="ticket-left">
+                    <div class="ticket-header">VALENTINE'S PASS</div>
+                    <div class="ticket-body">
+                        <div class="ticket-row">
+                            <span class="label">PASS HOLDER</span>
+                            <span class="value">Варвара</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="label">VALID FOR</span>
+                            <span class="value">One Perfect Date</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="label">PRICE</span>
+                            <span class="value">Your Smile</span>
+                        </div>
+                        <div class="ticket-row">
+                            <span class="label">DATE</span>
+                            <span class="value">Anytime</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ticket-right">
+                    <div class="ticket-barcode"></div>
+                </div>
+            </div>
+
+            <div id="unluck-message" class="hidden">
+                <div class="unluck-text">Ну ладно, я не дуюсь просто знай, что ты всё равно крутая!</div>
+                <div class="unluck-video">
+                    <video src="7.webm" autoplay loop muted playsinline
+                        style="max-width: 200px; border-radius: 10px; margin-top: 15px;"></video>
+                </div>
+            </div>
+
+            <div id="screenshot-hint" class="hidden pastel-accent"
+                style="margin-top: 30px; font-size: 0.9rem; opacity: 0.7;">
+                Можно предъявить скриншот
+            </div>
+        </div>
+    </div>
+    <div class="site-decoration bottom">
+        <div class="deco-line"></div>
+        <div class="deco-symbol">❤</div>
+        <div class="deco-line"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

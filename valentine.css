@@ -1,0 +1,554 @@
+/* Default styles remain... adding Valentine Mode */
+
+/* Body mode with Mesh Gradient */
+body.valentine-mode {
+    background: #0f0505;
+    color: #fff !important;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Mesh Gradient Background */
+body.valentine-mode::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(at 20% 30%, hsla(350, 90%, 30%, 0.8) 0px, transparent 50%),
+        radial-gradient(at 80% 0%, hsla(340, 90%, 20%, 0.8) 0px, transparent 50%),
+        radial-gradient(at 0% 50%, hsla(355, 100%, 25%, 0.8) 0px, transparent 50%),
+        radial-gradient(at 80% 50%, hsla(340, 100%, 20%, 0.8) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(350, 90%, 30%, 0.8) 0px, transparent 50%),
+        radial-gradient(at 80% 100%, hsla(355, 80%, 25%, 0.8) 0px, transparent 50%),
+        radial-gradient(at 0% 0%, hsla(340, 90%, 20%, 0.8) 0px, transparent 50%);
+    animation: meshMove 20s ease-in-out infinite alternate;
+    z-index: -1;
+    filter: blur(80px);
+}
+
+@keyframes meshMove {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-30px, -30px) rotate(2deg);
+    }
+}
+
+/* Laconic Site Decorations */
+.site-decoration {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s ease;
+    padding: 0 30px;
+}
+
+.site-decoration.top {
+    top: 0;
+}
+
+.site-decoration.bottom {
+    bottom: 0;
+}
+
+.deco-line {
+    height: 1px;
+    flex-grow: 1;
+    background: currentColor;
+    opacity: 0.15;
+    transition: background 1s ease, opacity 0.5s ease;
+    max-width: 300px;
+}
+
+.deco-symbol {
+    font-size: 0.8rem;
+    margin: 0 15px;
+    opacity: 0.3;
+    color: currentColor;
+    transition: color 1s ease, transform 0.5s ease;
+}
+
+/* Color Adaptation for Dark Theme */
+body.dark-mode .deco-line {
+    opacity: 0.2;
+}
+
+/* Color Adaptation for Valentine Mode */
+body.valentine-mode .deco-symbol {
+    color: #ff9999;
+    opacity: 0.8;
+    transform: scale(1.2);
+    text-shadow: 0 0 10px rgba(255, 153, 153, 0.5);
+}
+
+body.valentine-mode .deco-line {
+    background: #ffcccc;
+    opacity: 0.3;
+}
+
+/* Ticket Area */
+#ticket-area {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    perspective: 1000px;
+    width: 100%;
+}
+
+#ticket-area.hidden {
+    display: none;
+}
+
+.buttons-wrapper {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Unified Simple Buttons */
+.simple-btn {
+    width: 150px;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    backdrop-filter: blur(5px);
+}
+
+.simple-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.02);
+}
+
+.simple-btn:active {
+    transform: scale(0.98);
+}
+
+/* Unluck Message */
+#unluck-message {
+    text-align: center;
+    animation: fadeIn 0.5s forwards;
+}
+
+.unluck-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+    text-transform: none;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.4;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.unluck-sub {
+    font-size: 1.1rem;
+    color: #bbb;
+    opacity: 0.8;
+}
+
+#unluck-message.hidden {
+    display: none;
+}
+
+
+/* TICKET STYLING */
+#date-ticket {
+    background-color: #f7f3e8;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    /* Cream paper with noise */
+    color: #333;
+    width: 320px;
+    height: auto;
+    min-height: 160px;
+    border-radius: 12px;
+    display: flex;
+    overflow: hidden;
+    /* Premium Shadow */
+    box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+        0 100px 80px rgba(0, 0, 0, 0.12);
+    transform-style: preserve-3d;
+    animation: unfoldTicket 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards, neonPulse 2.5s ease-out 1.2s forwards;
+    position: relative;
+    border: 1px solid transparent;
+    /* Prepare for border animation */
+}
+
+@keyframes neonPulse {
+    0% {
+        border-color: rgba(255, 100, 100, 0);
+        box-shadow:
+            0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+            0 12.5px 10px rgba(0, 0, 0, 0.06),
+            0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+            0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+            0 100px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    10% {
+        border-color: #ffcccc;
+        box-shadow: 0 0 15px rgba(255, 100, 100, 0.5), 0 0 30px rgba(255, 50, 50, 0.3);
+    }
+
+    100% {
+        border-color: transparent;
+        /* Return to Premium Shadow */
+        box-shadow:
+            0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+            0 12.5px 10px rgba(0, 0, 0, 0.06),
+            0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+            0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+            0 100px 80px rgba(0, 0, 0, 0.12);
+    }
+}
+
+#date-ticket.hidden {
+    display: none;
+}
+
+@keyframes unfoldTicket {
+    from {
+        opacity: 0;
+        transform: rotateX(-90deg) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotateX(0) scale(1);
+    }
+}
+
+.ticket-left {
+    flex: 1;
+    padding: 15px;
+    border-right: 2px dashed #ccc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Center content vertically */
+}
+
+/* Cutout circles */
+.ticket-left::after,
+.ticket-right::after,
+.ticket-left::before,
+.ticket-right::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #2b0a0d;
+    /* Match body bg */
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.ticket-left::after {
+    top: -10px;
+    right: -10px;
+}
+
+.ticket-left::before {
+    bottom: -10px;
+    right: -10px;
+}
+
+.ticket-header {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #b76e79;
+    /* Rose gold */
+    letter-spacing: 1px;
+    border-bottom: 2px solid #b76e79;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.ticket-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ticket-row {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.label {
+    font-size: 0.6rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: monospace;
+}
+
+.value {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    color: #2c2c2c;
+    line-height: 1.1;
+}
+
+.ticket-right {
+    width: 60px;
+    background: #eae6db;
+    /* Slightly darker */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.ticket-barcode {
+    height: 80%;
+    width: 100%;
+    background: repeating-linear-gradient(0deg,
+            #333,
+            #333 2px,
+            transparent 2px,
+            transparent 4px,
+            #333 4px,
+            #333 5px);
+    opacity: 0.7;
+}
+
+/* Unify Buttons */
+.danger-btn {
+    width: 150px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease;
+    /* Red glow for consistency */
+    box-shadow: 0 0 20px rgba(255, 50, 50, 0.3);
+}
+
+.danger-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Valentine Container */
+.valentine-container {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+}
+
+.valentine-title {
+    font-family: 'Playfair Display', serif;
+    /* Use a classy serif if available, fallback system serif */
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff 0%, #ffcccc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: scale(0.9);
+    filter: drop-shadow(0 0 15px rgba(255, 100, 100, 0.3));
+    animation: elegantAppear 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.sub-text {
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 1s ease 0.8s forwards;
+}
+
+@keyframes elegantAppear {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating Hearts Background */
+.floating-hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.bg-heart {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    /* Very subtle */
+    transform: rotate(45deg);
+    animation: floatUp linear infinite;
+}
+
+.bg-heart::before,
+.bg-heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.bg-heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.bg-heart::after {
+    left: -10px;
+    top: 0;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(45deg) scale(0.8);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(45deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* LACONIC BUTTON STYLES */
+#download-ticket-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    margin-top: 25px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.5s forwards 0.5s;
+    user-select: none;
+}
+
+#download-ticket-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #fff;
+}
+
+#download-ticket-btn svg {
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+#download-ticket-btn.hidden {
+    display: none;
+}
+
+/* White Accent for Text */
+.pastel-accent {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    font-weight: 800;
+    -webkit-text-fill-color: initial;
+    /* Reset gradient fill */
+    background: none;
+    display: inline;
+}
+
+
+/* Spin Animation */
+.do-spin {
+    display: inline-block;
+    animation: spin-around 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes spin-around {
+    0% {
+        transform: rotate(-180deg) scale(0.5);
+        opacity: 0;
+    }
+
+    60% {
+        transform: rotate(380deg) scale(1.2);
+        opacity: 1;
+    }
+
+    85% {
+        transform: rotate(355deg) scale(1);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
