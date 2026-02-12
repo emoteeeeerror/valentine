@@ -140,11 +140,11 @@ function triggerFinalSequences() {
     const screen = document.getElementById('final-message-screen');
     screen.classList.remove('hidden'); screen.style.color = '#0071e3';
 
-    typeText('last-words', "Ладно хватит балбесить", 60, () => {
+    typeText('last-words', "Ладно хватит балбесить!!", 60, () => {
         setTimeout(() => {
             document.body.classList.add('dark-mode');
             screen.style.color = '#fff';
-            typeText('last-words', "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне очень нрав.\n\nНе хочу заваливать тебя\nкакими-то громкими словами.\n\nПросто знай, что ты —\nименно тот человек,\nс которым мне хочется\nделиться всем на свете.\n\nЯ просто очень рад,\nчто ты есть в моей жизни", 55, () => {
+            typeText('last-words', "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне очень нрав.:point_right: :point_left:\n\nНе хочу заваливать тебя\nкакими-то громкими словами.\n\nПросто знай, что ты —\nименно тот человек,\nс которым мне хочется\nделиться всем на свете.\n\nЯ просто очень рад,\nчто ты есть в моей жизни", 55, () => {
                 currentState = states.FINAL_CONFESSION;
                 document.getElementById('confession-hint').classList.add('visible');
             });
@@ -330,3 +330,4 @@ window.onload = () => {
     }, 7000);
 
 };
+
