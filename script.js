@@ -3,7 +3,7 @@ let currentState = states.START;
 let typingFinished = false;
 
 const messages = [
-    "Привет. Это сайт, потому что обычная валентинка — слишком слабо лоооооол",
+    "Привет. Это сайт, потому что обычная валентинка — слишком слабо лоооооол🤙",
     "Я ничего не жду, да и не прошу.\nПросто хочу уже сказать хоть часть того, что думаю >_<\nДа и, бе-бе-бу-бу, подарить тебе валентинку."
 ];
 
@@ -15,9 +15,6 @@ function typeText(elementId, text, speed = 40, callback) {
         if (i < text.length) {
             let char = text.charAt(i);
 
-            // Atomic HTML block handling
-            // If we see an opening <span, we print the whole <span>...</span> block at once
-            // to prevent the browser from auto-closing the tag prematurely.
             if (text.substr(i, 5) === '<span') {
                 const closing = text.indexOf('</span>', i);
                 if (closing !== -1) {
@@ -29,7 +26,6 @@ function typeText(elementId, text, speed = 40, callback) {
                 }
             }
 
-            // Standard tag handling (for <br>, etc.)
             if (char === '<') {
                 const endTag = text.indexOf('>', i);
                 if (endTag !== -1) {
@@ -54,14 +50,17 @@ function typeText(elementId, text, speed = 40, callback) {
 
 function triggerFinalSequences() {
     const screen = document.getElementById('final-message-screen');
-    screen.classList.remove('hidden'); screen.style.color = '#0071e3';
+    screen.classList.remove('hidden'); 
+    screen.style.color = '#0071e3';
 
-    typeText('last-words', "Ладно хватит балбесить!!", 60, () => {
+    typeText('last-words', "Ладно хватит балбесить!! 😊", 60, () => {
         setTimeout(() => {
             document.body.classList.add('dark-mode');
             screen.style.color = '#fff';
-            // Removed extra \n to make text wider, kept only paragraphs
-            typeText('last-words', "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне очень нрав:point_right: :point_left:. Не хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете. Я просто очень рад, что ты есть в моей жизни", 55, () => {
+            
+            const finalSpeech = "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне очень нрав 👉👈\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете.\n\nЯ просто очень рад, что ты есть в моей жизни ❤️";
+            
+            typeText('last-words', finalSpeech, 55, () => {
                 currentState = states.FINAL_CONFESSION;
                 document.getElementById('confession-hint').classList.add('visible');
             });
@@ -79,8 +78,7 @@ function popCard() {
     setTimeout(() => {
         topCard.remove();
         if (stack.querySelectorAll('.card').length === 0) {
-            // Text is already visible behind cards
-            setTimeout(startParticleFinal, 1500); // Wait a bit before particles
+            setTimeout(startParticleFinal, 1500);
         }
     }, 500);
 }
@@ -93,8 +91,6 @@ function startParticleFinal() {
     canvas = document.getElementById('particle-canvas');
     ctx = canvas.getContext('2d');
     canvas.style.display = 'block';
-
-    // Show particle hint
     document.getElementById('particle-hint').classList.add('visible');
 
     canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -136,35 +132,19 @@ function animate() {
     animationId = requestAnimationFrame(animate);
 }
 
-function triggerFinalSequences() {
-    const screen = document.getElementById('final-message-screen');
-    screen.classList.remove('hidden'); screen.style.color = '#0071e3';
-
-    typeText('last-words', "Ладно хватит балбесить!!", 60, () => {
-        setTimeout(() => {
-            document.body.classList.add('dark-mode');
-            screen.style.color = '#fff';
-            typeText('last-words', "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне очень нрав.:point_right: :point_left:\n\nНе хочу заваливать тебя\nкакими-то громкими словами.\n\nПросто знай, что ты —\nименно тот человек,\nс которым мне хочется\nделиться всем на свете.\n\nЯ просто очень рад,\nчто ты есть в моей жизни", 55, () => {
-                currentState = states.FINAL_CONFESSION;
-                document.getElementById('confession-hint').classList.add('visible');
-            });
-        }, 1500);
-    });
-}
-
 document.body.addEventListener('click', () => {
     if (currentState === states.PARTICLES && !isAssembled) {
-        document.getElementById('particle-hint').classList.remove('visible'); // Hide hint
-        isAssembled = true; triggerFinalSequences(); return;
+        document.getElementById('particle-hint').classList.remove('visible');
+        isAssembled = true; 
+        triggerFinalSequences(); 
+        return;
     }
 
     if (currentState === states.START && typingFinished) {
         document.getElementById('first-text-section').classList.add('hidden');
         const next = document.getElementById('second-text-section');
         next.classList.remove('hidden');
-        // Force display flex via inline style just in case of conflicts (optional but safer)
         next.style.display = 'flex';
-
         currentState = states.SECOND_TEXT;
         typeText('text-2', messages[1], 40, () => document.getElementById('hint-2').classList.add('visible'));
     }
@@ -172,16 +152,13 @@ document.body.addEventListener('click', () => {
         document.getElementById('second-text-section').classList.add('hidden');
         const next = document.getElementById('cards-section');
         next.classList.remove('hidden');
-        // Force display flex via inline style
         next.style.display = 'flex';
-
         currentState = states.CARDS;
 
-        // Trigger spin animation manually to ensure it runs on appearance
         const glowText = document.querySelector('.glow-text');
         if (glowText) {
-            glowText.classList.remove('glow-text'); // Remove to restart or just add wrapper
-            void glowText.offsetWidth; // Trigger reflow
+            glowText.classList.remove('glow-text');
+            void glowText.offsetWidth;
             glowText.classList.add('glow-text');
             glowText.classList.add('do-spin');
         }
@@ -193,27 +170,19 @@ document.body.addEventListener('click', () => {
     }
     else if (currentState === states.CARDS) popCard();
     else if (currentState === states.FINAL_CONFESSION && typingFinished) {
-        document.getElementById('confession-hint').classList.remove('visible'); // Hide hint immediately
+        document.getElementById('confession-hint').classList.remove('visible');
         currentState = states.END;
         document.body.classList.add('valentine-mode');
-
-        // Clear previous elements without destroying ticket-area
         document.getElementById('last-words').style.display = 'none';
 
         const screen = document.getElementById('final-message-screen');
-
-        // Create and prepend Valentine Container
         const valContainer = document.createElement('div');
         valContainer.className = 'valentine-container';
         valContainer.innerHTML = '<div class="valentine-title">Be my Valentine?</div>';
-
-        // Insert before the ticket area or at the beginning
         screen.insertBefore(valContainer, screen.firstChild);
 
-        // Add minimal floating hearts background
         createFloatingHearts();
 
-        // Show Decision Area
         setTimeout(() => {
             const ticketArea = document.getElementById('ticket-area');
             ticketArea.classList.remove('hidden');
@@ -222,36 +191,27 @@ document.body.addEventListener('click', () => {
 
             const buttonsWrapper = ticketArea.querySelector('.buttons-wrapper');
 
-            // ACCEPT
             document.getElementById('accept-btn').addEventListener('click', function () {
                 buttonsWrapper.style.transition = 'opacity 0.5s';
                 buttonsWrapper.style.opacity = '0';
-
                 setTimeout(() => {
                     buttonsWrapper.style.display = 'none';
                     document.getElementById('date-ticket').classList.remove('hidden');
-
-                    // Show screenshot hint with animation
                     const hint = document.getElementById('screenshot-hint');
                     hint.classList.remove('hidden');
-                    // Force reflow
                     void hint.offsetWidth;
                     hint.style.animation = 'fadeInUp 1s forwards 0.5s';
-
                 }, 500);
             });
 
-            // DECLINE
             document.getElementById('decline-btn').addEventListener('click', function () {
                 buttonsWrapper.style.transition = 'opacity 0.5s';
                 buttonsWrapper.style.opacity = '0';
-
                 setTimeout(() => {
                     buttonsWrapper.style.display = 'none';
                     document.getElementById('unluck-message').classList.remove('hidden');
                 }, 500);
             });
-
         }, 2000);
     }
 });
@@ -277,8 +237,6 @@ window.onload = () => {
     const videos = document.querySelectorAll('video');
     let loadedCount = 0;
     const totalVideos = videos.length;
-
-    // Minimum time to show splash (so it doesn't flash too fast)
     const minSplashTime = 1500;
     const startTime = Date.now();
 
@@ -290,10 +248,8 @@ window.onload = () => {
         if (loadedCount >= totalVideos) {
             const elapsedTime = Date.now() - startTime;
             const remainingTime = Math.max(0, minSplashTime - elapsedTime);
-
             setTimeout(() => {
                 splashScreen.classList.add('hidden');
-                // Start original flow after splash is gone
                 setTimeout(() => {
                     typeText('text-1', messages[0], 40, () => document.getElementById('hint-1').classList.add('visible'));
                 }, 800);
@@ -302,32 +258,26 @@ window.onload = () => {
     }
 
     if (totalVideos === 0) {
-        updateProgress(); // No videos, just finish
+        updateProgress();
     } else {
         videos.forEach(video => {
-            // Force preload
             video.preload = "auto";
-
-            if (video.readyState >= 4) { // HAVE_ENOUGH_DATA
+            if (video.readyState >= 4) {
                 updateProgress();
             } else {
                 video.addEventListener('canplaythrough', updateProgress, { once: true });
-                video.addEventListener('error', updateProgress, { once: true }); // Count errors as loaded to avoid hang
-                video.load(); // Trigger loading
+                video.addEventListener('error', updateProgress, { once: true });
+                video.load();
             }
         });
     }
 
-    // Safety fallback: force verify after 7 seconds in case of stuck events
     setTimeout(() => {
         if (loadedCount < totalVideos) {
-            console.warn("Loading timeout - forcing start");
             splashScreen.classList.add('hidden');
             setTimeout(() => {
                 typeText('text-1', messages[0], 40, () => document.getElementById('hint-1').classList.add('visible'));
             }, 800);
         }
     }, 7000);
-
 };
-
