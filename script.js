@@ -7,9 +7,10 @@ const messages = [
     "Я ничего не жду, да и не прошу.\nПросто хочу уже сказать хоть часть того, что думаю >_<\nДа и, бе-бе-бу-бу, подарить тебе валентинку."
 ];
 
-function typeText(elementId, text, speed = 40, callback) {
+function typeText(elementId, text, speed = 40, callback, append = false) {
     let i = 0; const el = document.getElementById(elementId);
-    el.innerHTML = ""; typingFinished = false;
+    if (!append) el.innerHTML = "";
+    typingFinished = false;
 
     function step() {
         if (i < text.length) {
@@ -48,22 +49,59 @@ function typeText(elementId, text, speed = 40, callback) {
     step();
 }
 
+function deleteLastChars(elementId, count, speed = 50, callback) {
+    const el = document.getElementById(elementId);
+    let current = 0;
+    function step() {
+        if (current < count) {
+            let fullText = el.innerHTML;
+            el.innerHTML = fullText.slice(0, -1);
+            current++;
+            setTimeout(step, speed);
+        } else {
+            if (callback) callback();
+        }
+    }
+    step();
+}
+
 function triggerFinalSequences() {
     const screen = document.getElementById('final-message-screen');
-    screen.classList.remove('hidden'); 
+    screen.classList.remove('hidden');
     screen.style.color = '#0071e3';
 
+    // Initial cheeky message
     typeText('last-words', "Ладно хватит балбесить!!!", 60, () => {
         setTimeout(() => {
             document.body.classList.add('dark-mode');
             screen.style.color = '#fff';
-            
-            const finalSpeech = "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне всё так же очень нрав и тд 👉👈\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете.\n\nЯ просто очень рад, что ты есть в моей жизни";
-            
-            typeText('last-words', finalSpeech, 55, () => {
-                currentState = states.FINAL_CONFESSION;
-                document.getElementById('confession-hint').classList.add('visible');
+
+            // Part 1: Initial text up to the "mistake"
+            const part1 = "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне всё так же нрав";
+
+            // Part 2: The correction
+            const partCorrection = "ооооочень нрав";
+
+            // Part 3: The rest of the message
+            const part3 = " и тд 👉👈\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете.\n\nЯ просто очень рад, что ты есть в моей жизни";
+
+            typeText('last-words', part1, 55, () => {
+                setTimeout(() => {
+                    // Delete "нрав" (4 chars) to simulate correction
+                    // Speed is slightly reduced for dramatic effect
+                    deleteLastChars('last-words', 4, 100, () => {
+                        // Type the corrected emphasized phrase
+                        typeText('last-words', partCorrection, 55, () => {
+                            // Type the rest
+                            typeText('last-words', part3, 55, () => {
+                                currentState = states.FINAL_CONFESSION;
+                                document.getElementById('confession-hint').classList.add('visible');
+                            }, true); // append=true
+                        }, true); // append=true
+                    });
+                }, 600); // Small pause before correction
             });
+
         }, 1500);
     });
 }
@@ -135,8 +173,8 @@ function animate() {
 document.body.addEventListener('click', () => {
     if (currentState === states.PARTICLES && !isAssembled) {
         document.getElementById('particle-hint').classList.remove('visible');
-        isAssembled = true; 
-        triggerFinalSequences(); 
+        isAssembled = true;
+        triggerFinalSequences();
         return;
     }
 
