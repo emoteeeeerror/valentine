@@ -94,8 +94,22 @@ function triggerFinalSequences() {
                         typeText('last-words', partCorrection, 55, () => {
                             // Type the rest
                             typeText('last-words', part3, 55, () => {
-                                currentState = states.FINAL_CONFESSION;
-                                document.getElementById('confession-hint').classList.add('visible');
+                                // Add heart animation after text
+                                const lw = document.getElementById('last-words');
+                                const heartContainer = document.createElement('span');
+                                heartContainer.className = 'heart-container';
+                                heartContainer.innerHTML = `
+                                    <svg class="hand-heart" viewBox="0 0 100 100">
+                                        <path d="M50,30 Q75,5 90,30 C98,45 85,65 50,90 C15,65 2,45 10,30 Q25,5 50,30" />
+                                    </svg>
+                                `;
+                                lw.appendChild(heartContainer);
+
+                                // Wait for heart animation before showing hint
+                                setTimeout(() => {
+                                    currentState = states.FINAL_CONFESSION;
+                                    document.getElementById('confession-hint').classList.add('visible');
+                                }, 1500);
                             }, true); // append=true
                         }, true); // append=true
                     });
