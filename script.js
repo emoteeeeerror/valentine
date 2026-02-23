@@ -83,7 +83,7 @@ function triggerFinalSequences() {
             const partFake = "ты мне всё так же ооооочень нрав и тд 👉👈";
 
             // Part 3: The real confession that replaces it
-            const partReal = "я всё так же влюблен в тебя";
+            const partReal = "я всё так же в тебя влюблен";
 
             // Part 4: The rest of the message
             const part4 = "\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете.\n\nЯ просто очень рад, что ты есть в моей жизни";
@@ -342,6 +342,7 @@ window.onload = () => {
         }
     }, 7000);
 };
+
 
 
 
