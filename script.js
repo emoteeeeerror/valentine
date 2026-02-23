@@ -76,44 +76,53 @@ function triggerFinalSequences() {
             document.body.classList.add('dark-mode');
             screen.style.color = '#fff';
 
-            // Part 1: Initial text up to the "mistake"
-            const part1 = "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ты мне всё так же нрав";
+            // Part 1: Setup text before the "fake" phrase
+            const part1 = "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ";
 
-            // Part 2: The correction
-            const partCorrection = "ооооочень нрав";
+            // Part 2: The "fake" phrase that will be typed then erased
+            const partFake = "ты мне всё так же ооооочень нрав и тд 👉👈";
 
-            // Part 3: The rest of the message
-            const part3 = " и тд 👉👈\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете.\n\nЯ просто очень рад, что ты есть в моей жизни";
+            // Part 3: The real confession that replaces it
+            const partReal = "я всё так же влюблен в тебя💙";
+
+            // Part 4: The rest of the message
+            const part4 = "\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете.\n\nЯ просто очень рад, что ты есть в моей жизни";
 
             typeText('last-words', part1, 55, () => {
-                setTimeout(() => {
-                    // Delete "нрав" (4 chars) to simulate correction
-                    // Speed is slightly reduced for dramatic effect
-                    deleteLastChars('last-words', 4, 100, () => {
-                        // Type the corrected emphasized phrase
-                        typeText('last-words', partCorrection, 55, () => {
-                            // Type the rest
-                            typeText('last-words', part3, 55, () => {
-                                // Add heart animation after text
-                                const lw = document.getElementById('last-words');
-                                const heartContainer = document.createElement('span');
-                                heartContainer.className = 'heart-container';
-                                heartContainer.innerHTML = `
-                                    <svg class="hand-heart" viewBox="0 0 100 100">
-                                        <path d="M50,30 Q75,5 90,30 C98,45 85,65 50,90 C15,65 2,45 10,30 Q25,5 50,30" />
-                                    </svg>
-                                `;
-                                lw.appendChild(heartContainer);
+                // Type the fake phrase first
+                typeText('last-words', partFake, 55, () => {
+                    // Pause so the reader can see it
+                    setTimeout(() => {
+                        // Erase the fake phrase character by character
+                        deleteLastChars('last-words', partFake.length, 40, () => {
+                            // Small dramatic pause before the real confession
+                            setTimeout(() => {
+                                // Type the real confession
+                                typeText('last-words', partReal, 65, () => {
+                                    // Type the rest of the message
+                                    typeText('last-words', part4, 55, () => {
+                                        // Add heart animation after text
+                                        const lw = document.getElementById('last-words');
+                                        const heartContainer = document.createElement('span');
+                                        heartContainer.className = 'heart-container';
+                                        heartContainer.innerHTML = `
+                                            <svg class="hand-heart" viewBox="0 0 100 100">
+                                                <path d="M50,30 Q75,5 90,30 C98,45 85,65 50,90 C15,65 2,45 10,30 Q25,5 50,30" />
+                                            </svg>
+                                        `;
+                                        lw.appendChild(heartContainer);
 
-                                // Wait for heart animation before showing hint
-                                setTimeout(() => {
-                                    currentState = states.FINAL_CONFESSION;
-                                    document.getElementById('confession-hint').classList.add('visible');
-                                }, 1500);
-                            }, true); // append=true
-                        }, true); // append=true
-                    });
-                }, 600); // Small pause before correction
+                                        // Wait for heart animation before showing hint
+                                        setTimeout(() => {
+                                            currentState = states.FINAL_CONFESSION;
+                                            document.getElementById('confession-hint').classList.add('visible');
+                                        }, 1500);
+                                    }, true); // append=true
+                                }, true); // append=true
+                            }, 400); // dramatic pause before real confession
+                        });
+                    }, 900); // pause to let reader see the fake phrase
+                }, true); // append=true
             });
 
         }, 1500);
