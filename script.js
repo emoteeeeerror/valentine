@@ -79,14 +79,14 @@ function triggerFinalSequences() {
             // Part 1: Setup text before the "fake" phrase
             const part1 = "Так что пора уже раздать басса!!\n\n<span class='pastel-accent'>Варь</span>, ";
 
-            // Part 2: The "fake" phrase that will be typed then erased
-            const partFake = "ты мне всё так же ооооочень нрав и тд 👉👈";
+            // Part 2: The "fake" phrase that will be typed then erased (censored)
+            const partFake = "я всё так же ████ ████ 👉👈";
 
-            // Part 3: The real confession that replaces it
-            const partReal = "я всё так же в тебя влюблен";
+            // Part 3: The real confession that replaces it (censored)
+            const partReal = "я всё так же ████ ████ ████████";
 
             // Part 4: The rest of the message
-            const part4 = "\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — именно тот человек, с которым мне хочется делиться всем на свете.\n\nЯ просто очень рад, что ты есть в моей жизни";
+            const part4 = "\n\nНе хочу заваливать тебя какими-то громкими словами. Просто знай, что ты — ████████ ████ ████████, ████ ████ ████ ████████ ████ ████ ████ ████.\n\nЯ просто очень рад, что ты есть в моей жизни";
 
             typeText('last-words', part1, 55, () => {
                 // Type the fake phrase first
@@ -101,22 +101,7 @@ function triggerFinalSequences() {
                                 typeText('last-words', partReal, 65, () => {
                                     // Type the rest of the message
                                     typeText('last-words', part4, 55, () => {
-                                        // Add heart animation after text
-                                        const lw = document.getElementById('last-words');
-                                        const heartContainer = document.createElement('span');
-                                        heartContainer.className = 'heart-container';
-                                        heartContainer.innerHTML = `
-                                            <svg class="hand-heart" viewBox="0 0 100 100">
-                                                <path d="M50,30 Q75,5 90,30 C98,45 85,65 50,90 C15,65 2,45 10,30 Q25,5 50,30" />
-                                            </svg>
-                                        `;
-                                        lw.appendChild(heartContainer);
-
-                                        // Wait for heart animation before showing hint
-                                        setTimeout(() => {
-                                            currentState = states.FINAL_CONFESSION;
-                                            document.getElementById('confession-hint').classList.add('visible');
-                                        }, 1500);
+                                        currentState = states.END;
                                     }, true); // append=true
                                 }, true); // append=true
                             }, 400); // dramatic pause before real confession
@@ -230,51 +215,7 @@ document.body.addEventListener('click', () => {
         });
     }
     else if (currentState === states.CARDS) popCard();
-    else if (currentState === states.FINAL_CONFESSION && typingFinished) {
-        document.getElementById('confession-hint').classList.remove('visible');
-        currentState = states.END;
-        document.body.classList.add('valentine-mode');
-        document.getElementById('last-words').style.display = 'none';
-
-        const screen = document.getElementById('final-message-screen');
-        const valContainer = document.createElement('div');
-        valContainer.className = 'valentine-container';
-        valContainer.innerHTML = '<div class="valentine-title">Be my Valentine?</div>';
-        screen.insertBefore(valContainer, screen.firstChild);
-
-        createFloatingHearts();
-
-        setTimeout(() => {
-            const ticketArea = document.getElementById('ticket-area');
-            ticketArea.classList.remove('hidden');
-            ticketArea.style.opacity = '0';
-            ticketArea.style.animation = 'fadeIn 1s forwards';
-
-            const buttonsWrapper = ticketArea.querySelector('.buttons-wrapper');
-
-            document.getElementById('accept-btn').addEventListener('click', function () {
-                buttonsWrapper.style.transition = 'opacity 0.5s';
-                buttonsWrapper.style.opacity = '0';
-                setTimeout(() => {
-                    buttonsWrapper.style.display = 'none';
-                    document.getElementById('date-ticket').classList.remove('hidden');
-                    const hint = document.getElementById('screenshot-hint');
-                    hint.classList.remove('hidden');
-                    void hint.offsetWidth;
-                    hint.style.animation = 'fadeInUp 1s forwards 0.5s';
-                }, 500);
-            });
-
-            document.getElementById('decline-btn').addEventListener('click', function () {
-                buttonsWrapper.style.transition = 'opacity 0.5s';
-                buttonsWrapper.style.opacity = '0';
-                setTimeout(() => {
-                    buttonsWrapper.style.display = 'none';
-                    document.getElementById('unluck-message').classList.remove('hidden');
-                }, 500);
-            });
-        }, 2000);
-    }
+    // Valentine's Pass removed
 });
 
 function createFloatingHearts() {
